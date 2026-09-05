@@ -595,6 +595,58 @@ html.lenis, html.lenis body { height: auto; }
   .term .caret { animation: none; }
 }
 
+/* ---------- scroll-scrub sequence ---------- */
+.seq-section {
+  position: relative;
+  height: 280vh;
+  background: #0E100E;
+}
+.seq-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.seq-poster,
+.seq-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.seq-canvas { opacity: 0; transition: opacity 0.5s ease; }
+.seq-canvas.loaded { opacity: 1; }
+.seq-copy {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 9vh;
+  width: 100%;
+  color: #E9E4DA;
+}
+.seq-copy .kicker { color: #6FCF97; }
+.seq-copy h2 {
+  font-family: var(--serif);
+  font-weight: 540;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.1;
+  max-width: 18ch;
+}
+.seq-copy p {
+  margin-top: 14px;
+  max-width: 36em;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #B9B3A6;
+}
+.seq-copy .mono-tag { display: inline-block; margin-top: 16px; color: #7C8A7E; font-size: 12px; }
+@media (max-width: 700px) {
+  .seq-section { height: 240vh; }
+  .seq-copy { bottom: 6vh; }
+  .seq-copy p { font-size: 14px; }
+}
+
 /* ---------- proof strip terminal ---------- */
 .proof-strip .term {
   max-width: 720px;
