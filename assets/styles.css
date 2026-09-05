@@ -31,7 +31,7 @@ html, body { overflow-x: clip; }
 }
 
 body {
-  background: var(--bg);
+  background: var(--bg); /* world.js repaints over the fixed canvas; body bg stays for no-JS */
   color: var(--ink);
   font-family: var(--sans);
   font-size: 17px;
@@ -680,3 +680,61 @@ html.lenis, html.lenis body { height: auto; }
   .section { padding: 64px 0; }
   .hero .cta-row .btn { padding: 12px 20px; }
 }
+
+/* ---------- the continuous world ---------- */
+#world {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+}
+body.world-dark .site-header {
+  background: rgba(14, 16, 14, 0.88);
+  border-bottom-color: #262B26;
+}
+body.world-dark .site-header .brand,
+body.world-dark .site-header .site-nav a { color: #E9E4DA; }
+
+@media (prefers-reduced-motion: reduce) {
+  #world { display: none; }
+}
+
+/* solid plates for the machine zone (never text-over-canvas-mid-fade) */
+.stats { position: relative; }
+.stats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+.stats .container { position: relative; z-index: 1; }
+body.world-dark .stats::before { background: #10120F; }
+
+.proof-strip { position: relative; }
+.proof-strip .container { position: relative; z-index: 1; }
+.proof-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  transition: background 0.5s ease;
+}
+body.world-dark .proof-strip::before { background: #0E100E; }
+
+/* dark-zone text turns light */
+body.world-dark .stats .num,
+body.world-dark .stat .lbl { color: #E9E4DA; }
+body.world-dark .section-head h2,
+body.world-dark .proof-strip .section-head h2 { color: #F2EEE6; }
+body.world-dark .section-head .kicker { color: #6FCF97; }
+
+/* case pages: prose plate stays solid over ambient canvas */
+.article { background: transparent; }
+.prose { background: transparent; }
+
+/* the machine's stage: empty band where gates + ring play */
+.machine-band { height: 160vh; }
+@media (max-width: 700px) { .machine-band { height: 120vh; } }

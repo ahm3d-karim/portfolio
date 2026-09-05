@@ -13,9 +13,10 @@
   </script>
 </head>
 <body>
+  <canvas id="world" aria-hidden="true"></canvas>
   <script src="assets/lenis.min.js" defer></script>
   <script src="assets/main.js" defer></script>
-  <script src="assets/scrub.js" defer></script>
+  <script src="assets/world.js" defer></script>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -90,21 +91,6 @@
         </article>
       </div>
     </section>
-
-    <!-- METHOD: scroll-scrubbed sequence -->
-    <section class="seq-section" id="method">
-      <div class="seq-stage">
-        <img class="seq-poster" src="assets/img/seq/seq-poster.webp" alt="" width="1280" height="720" loading="lazy" decoding="async" />
-        <canvas class="seq-canvas" width="1280" height="720" aria-hidden="true"></canvas>
-        <div class="seq-copy container">
-          <span class="kicker">How I think</span>
-          <h2>Verification, visualized.</h2>
-          <p>A raw stream of input flows past three gates and earns the check. This is the loop I build around agents. (Rendered abstraction, drawn procedurally, scrubbed by your scroll.)</p>
-          <span class="mono-tag">procedural · 64 frames · scroll to scrub</span>
-        </div>
-      </div>
-    </section>
-
     <!-- STATS -->
     <section class="stats" aria-label="Numbers">
       <div class="container">
@@ -115,6 +101,35 @@
         <div class="stat"><div class="num">Top&nbsp;<span data-count="5">5</span></div><div class="lbl">GDG hackathon finish, 2-hour build</div></div>
       </div>
     </section>
+    <!-- PROOF STRIP -->
+    <section class="section proof-strip" id="proof">
+      <div class="container">
+        <div class="section-head anim" data-anim="fade-up">
+          <span class="kicker">Proof, not promises</span>
+          <h2>What the work looks like when it runs.</h2>
+        </div>
+        <div class="term term-home anim" data-anim="fade-up" data-type role="img" aria-label="Terminal transcript showing a ticket being verified and deployed">
+          <div><span class="p">$</span> fde submit ticket.md</div>
+          <div><span class="dim">ticket → run · sandbox armed · audit log started</span></div>
+          <div>&nbsp;</div>
+          <div><span class="p">$</span> fde repro 20260813-183354-0bf0</div>
+          <div><span class="dim">state A</span> <span class="hl">FAIL</span> on buggy code · symptom found <span class="dim">✓</span></div>
+          <div><span class="dim">state B</span> <span class="hl">PASS</span> with gold patch <span class="dim">✓</span></div>
+          <div><span class="dim">state C</span> <span class="hl">PASS</span> · suite green · worktree untouched <span class="dim">✓</span></div>
+          <div>&nbsp;</div>
+          <div><span class="p">$</span> fde deploy --prod 20260813-183644-139e</div>
+          <div><span class="dim">health check</span> <span class="hl">200</span> · rollback armed</div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+    <!-- MACHINE BAND: the machine plays here, no text, canvas only -->
+    <div class="machine-band" aria-hidden="true"></div>
 
     <!-- CASE STUDIES -->
     <section class="section" id="case-studies">
@@ -177,28 +192,6 @@
             <p>Generates AGENTS.md from a repo's actual config, every command sourced from real files.</p>
             <span class="mono-tag">python · repo intelligence</span>
           </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROOF STRIP -->
-    <section class="section proof-strip" id="proof">
-      <div class="container">
-        <div class="section-head anim" data-anim="fade-up">
-          <span class="kicker">Proof, not promises</span>
-          <h2>What the work looks like when it runs.</h2>
-        </div>
-        <div class="term term-home anim" data-anim="fade-up" data-type role="img" aria-label="Terminal transcript showing a ticket being verified and deployed">
-          <div><span class="p">$</span> fde submit ticket.md</div>
-          <div><span class="dim">ticket → run · sandbox armed · audit log started</span></div>
-          <div>&nbsp;</div>
-          <div><span class="p">$</span> fde repro 20260813-183354-0bf0</div>
-          <div><span class="dim">state A</span> <span class="hl">FAIL</span> on buggy code · symptom found <span class="dim">✓</span></div>
-          <div><span class="dim">state B</span> <span class="hl">PASS</span> with gold patch <span class="dim">✓</span></div>
-          <div><span class="dim">state C</span> <span class="hl">PASS</span> · suite green · worktree untouched <span class="dim">✓</span></div>
-          <div>&nbsp;</div>
-          <div><span class="p">$</span> fde deploy --prod 20260813-183644-139e</div>
-          <div><span class="dim">health check</span> <span class="hl">200</span> · rollback armed</div>
         </div>
       </div>
     </section>

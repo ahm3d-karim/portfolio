@@ -8,7 +8,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101210'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='600' text-anchor='middle' fill='%236FCF97'%3E%24%3C/text%3E%3C/svg%3E" />    <link rel="stylesheet" href="../assets/fonts/fonts.css" />
   <link rel="stylesheet" href="../assets/styles.css" />
 </head>
-<body>
+<body data-world="ambient">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -81,5 +81,7 @@
       </div>
     </article>
   </main>
+  <canvas id="world" aria-hidden="true"></canvas>
+  <script src="../assets/world.js" defer></script>
 </body>
 </html>
