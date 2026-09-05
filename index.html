@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ahmad Karim — AI automation tooling, verification harnesses, data products</title>
+  <meta name="description" content="Economics student (LUMS '28) building AI automation tooling: verification harnesses, agent pipelines, and data products." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101210'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='600' text-anchor='middle' fill='%236FCF97'%3E%24%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script>
+    // progressive-enhancement flag: every hidden/animated state is gated on .js
+    document.documentElement.classList.add("js");
+  </script>
+</head>
+<body>
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
+  <script src="assets/main.js" defer></script>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="dollar">$</span> ahmad-karim</a>
+      <nav class="site-nav" aria-label="Main">
+        <a class="u-line" href="#case-studies">Case studies</a>
+        <a class="u-line" href="#footer">Contact</a>
+        <a class="u-line" href="https://github.com/ahm3d-karim">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <span class="kicker anim" data-anim="fade-up">~/ahmad-karim $ whoami</span>
+        <h1 class="anim-mask">Ahmad Karim<span class="dot">.</span></h1>
+        <p class="lead anim" data-anim="fade-up" data-delay="1">Economics student (LUMS '28) building AI automation tooling: verification harnesses, agent pipelines, and data products.</p>
+        <p class="sub anim" data-anim="fade-up" data-delay="2">I build the machinery that makes AI agents trustworthy enough to ship. Less hype, more harness.</p>
+        <div class="cta-row anim" data-anim="fade-up" data-delay="3">
+          <a class="btn btn-primary" href="#flagships">See the work</a>
+          <a class="btn btn-ghost" href="mailto:28020258@lums.edu.pk">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLAGSHIPS -->
+    <section class="section" id="flagships">
+      <div class="container">
+        <div class="section-head anim" data-anim="fade-up">
+          <span class="kicker">01 · Flagships</span>
+          <h2>Two products, deployed and live.</h2>
+        </div>
+
+        <article class="flagship anim" data-anim="fade-up">
+          <a class="flagship-media" href="https://macrolens-pied.vercel.app" aria-label="Macro Lens live site">
+            <img src="assets/img/macrolens.webp" alt="Macro Lens homepage: five South Asian country cards with GDP growth, inflation, and GDP per capita" width="1200" height="750" loading="eager" />
+          </a>
+          <div class="flagship-info">
+            <div class="chip-row">
+              <span class="status-chip">LIVE</span>
+              <span class="mono-tag">next.js · static · wdi</span>
+            </div>
+            <h3>Macro Lens</h3>
+            <p>Five countries. Four decades. One honest look. Macroeconomic dossiers for Pakistan, India, Bangladesh, Sri Lanka, and Nepal, every series pulled straight from the World Bank's WDI. Finding-first: the chart answers a question, not just a metric.</p>
+            <div class="flagship-links">
+              <a class="u-line" href="https://macrolens-pied.vercel.app">Open the site ↗</a>
+              <a class="u-line" href="https://github.com/ahm3d-karim/macrolens">Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="flagship flip anim" data-anim="fade-up">
+          <a class="flagship-media" href="https://semester-os-omega.vercel.app" aria-label="Semester OS live site">
+            <img src="assets/img/semester-os.webp" alt="Semester OS homepage: upload a syllabus, three steps, verified course plan" width="1200" height="643" loading="lazy" />
+          </a>
+          <div class="flagship-info">
+            <div class="chip-row">
+              <span class="status-chip">LIVE</span>
+              <span class="mono-tag">next.js · supabase · byok</span>
+            </div>
+            <h3>Semester OS</h3>
+            <p>Your semester, verified. Upload a syllabus. Every deadline, grade weight, and policy is extracted, checked against the document, and shown with its evidence. Only what you approve enters your plan.</p>
+            <div class="flagship-links">
+              <a class="u-line" href="https://semester-os-omega.vercel.app">Open the app ↗</a>
+              <a class="u-line" href="https://github.com/ahm3d-karim/semester-os">Code ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats" aria-label="Numbers">
+      <div class="container">
+        <div class="stat"><div class="num" data-count="13">13</div><div class="lbl">public builds shipped</div></div>
+        <div class="stat"><div class="num" data-count="5">5</div><div class="lbl">South Asia economies covered</div></div>
+        <div class="stat"><div class="num" data-count="118">118</div><div class="lbl">tests green at HEAD</div></div>
+        <div class="stat"><div class="num" data-count="3">3</div><div class="lbl">agent tampering attempts, closed</div></div>
+        <div class="stat"><div class="num">Top&nbsp;<span data-count="5">5</span></div><div class="lbl">GDG hackathon finish, 2-hour build</div></div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="section" id="case-studies">
+      <div class="container">
+        <div class="section-head anim" data-anim="fade-up">
+          <span class="kicker">02 · Case studies</span>
+          <h2>The stories behind the builds, written like an analyst.</h2>
+        </div>
+
+        <a class="case-row anim" data-anim="fade-up" href="case-studies/ticket-to-fix.html">
+          <span class="case-num">001</span>
+          <span class="case-body">
+            <span class="kicker">ticket-to-fix</span>
+            <h3>The agent that tried to cheat three times</h3>
+            <p>An AI agent closed four bug tickets end to end. The interesting part is the harness that proved each fix, and caught the agent trying to fake one three different ways.</p>
+            <span class="case-pull">4/4 fixes · 1 fix round each · rollback demonstrated live</span>
+          </span>
+          <span class="case-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="case-row anim" data-anim="fade-up" href="case-studies/macro-lens.html">
+          <span class="case-num">002</span>
+          <span class="case-body">
+            <span class="kicker">macro lens</span>
+            <h3>Reading South Asia honestly</h3>
+            <p>Five economies, four decades of World Bank data, published as finding-first dossiers with zero backend. What the data actually says about Pakistan's reserve stress and Bangladesh's export machine.</p>
+            <span class="case-pull">5 economies · 40+ years per series · 100% static</span>
+          </span>
+          <span class="case-arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="case-row anim" data-anim="fade-up" href="case-studies/lrs-portal.html">
+          <span class="case-num">003</span>
+          <span class="case-body">
+            <span class="kicker">lrs portal</span>
+            <h3>A society's shortlisting, rebuilt</h3>
+            <p>The LUMS Religious Society's member shortlisting ran on spreadsheets and WhatsApp. I rebuilt it as a live portal with role-based access and a verifiable code system. Code private, running in production.</p>
+            <span class="case-pull">real users · running in production</span>
+          </span>
+          <span class="case-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- TOOLING -->
+    <section class="section" id="tooling">
+      <div class="container">
+        <div class="section-head anim" data-anim="fade-up">
+          <span class="kicker">03 · Tooling</span>
+          <h2>Small sharp CLIs.</h2>
+        </div>
+        <div class="tool-grid">
+          <a class="tool anim" data-anim="fade-up" href="https://github.com/ahm3d-karim/commit-brief">
+            <h3>commit-brief</h3>
+            <p>Turns yesterday's git log into a one-paragraph standup summary.</p>
+            <span class="mono-tag">python · mcp server</span>
+          </a>
+          <a class="tool anim" data-anim="fade-up" href="https://github.com/ahm3d-karim/agentize">
+            <h3>agentize</h3>
+            <p>Generates AGENTS.md from a repo's actual config, every command sourced from real files.</p>
+            <span class="mono-tag">python · repo intelligence</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF STRIP -->
+    <section class="section proof-strip" id="proof">
+      <div class="container">
+        <div class="section-head anim" data-anim="fade-up">
+          <span class="kicker">Proof, not promises</span>
+          <h2>What the work looks like when it runs.</h2>
+        </div>
+        <div class="term term-home anim" data-anim="fade-up" data-type role="img" aria-label="Terminal transcript showing a ticket being verified and deployed">
+          <div><span class="p">$</span> fde submit ticket.md</div>
+          <div><span class="dim">ticket → run · sandbox armed · audit log started</span></div>
+          <div>&nbsp;</div>
+          <div><span class="p">$</span> fde repro 20260813-183354-0bf0</div>
+          <div><span class="dim">state A</span> <span class="hl">FAIL</span> on buggy code · symptom found <span class="dim">✓</span></div>
+          <div><span class="dim">state B</span> <span class="hl">PASS</span> with gold patch <span class="dim">✓</span></div>
+          <div><span class="dim">state C</span> <span class="hl">PASS</span> · suite green · worktree untouched <span class="dim">✓</span></div>
+          <div>&nbsp;</div>
+          <div><span class="p">$</span> fde deploy --prod 20260813-183644-139e</div>
+          <div><span class="dim">health check</span> <span class="hl">200</span> · rollback armed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHIVE -->
+    <section class="section" id="archive">
+      <div class="container">
+        <div class="section-head anim" data-anim="fade-up">
+          <span class="kicker">04 · Archive</span>
+          <h2>Earlier builds, still up.</h2>
+        </div>
+        <div class="archive-grid">
+          <a class="archive-item anim" data-anim="fade-up" href="https://github.com/ahm3d-karim/imdad-v2">
+            <h3>IMDAD v2</h3>
+            <p>Government benefits eligibility, EN/Urdu, Top 5 at the GDG hackathon.</p>
+            <span class="mono-tag">live · imdad-beta.vercel.app</span>
+          </a>
+          <a class="archive-item anim" data-anim="fade-up" href="https://github.com/ahm3d-karim/md-to-pdf">
+            <h3>md-to-pdf</h3>
+            <p>Markdown to LaTeX-grade PDF in the browser.</p>
+            <span class="mono-tag">static · client-side</span>
+          </a>
+          <a class="archive-item anim" data-anim="fade-up" href="https://github.com/ahm3d-karim/pdf-to-md">
+            <h3>pdf-to-md</h3>
+            <p>Client-side PDF to Markdown, no upload.</p>
+            <span class="mono-tag">static · client-side</span>
+          </a>
+          <a class="archive-item anim" data-anim="fade-up" href="https://github.com/ahm3d-karim/whatsapp-bot">
+            <h3>whatsapp-bot</h3>
+            <p>WhatsApp chatbot on Meta Cloud API + DeepSeek.</p>
+            <span class="mono-tag">fastapi · meta cloud</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" id="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <h2>Building something that needs a verification layer?</h2>
+          <div class="footer-links">
+            <a class="u-line" href="https://github.com/ahm3d-karim">GitHub ↗</a>
+            <a class="u-line" href="https://www.linkedin.com/in/ahmad-karim-372136362/">LinkedIn ↗</a>
+            <a class="u-line" href="mailto:28020258@lums.edu.pk">28020258@lums.edu.pk</a>
+          </div>
+        </div>
+        <div class="footer-meta">
+          <span>Built with plain HTML, CSS, and an unreasonable amount of care.</span>
+          <span class="mono">$ exit 0</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</body>
+</html>

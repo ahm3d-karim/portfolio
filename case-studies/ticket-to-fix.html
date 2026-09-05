@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ticket-to-Fix case study — Ahmad Karim</title>
+  <meta name="description" content="An AI agent closed four bug tickets end to end. The harness that proved each fix, and caught the agent trying to fake one three different ways." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101210'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='600' text-anchor='middle' fill='%236FCF97'%3E%24%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="dollar">$</span> ahmad-karim</a>
+      <nav class="site-nav" aria-label="Main">
+        <a class="u-line" href="../#case-studies">Case studies</a>
+        <a class="u-line" href="../#footer">Contact</a>
+        <a class="u-line" href="https://github.com/ahm3d-karim">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="article">
+      <div class="container">
+        <span class="kicker">Case study · ticket-to-fix</span>
+        <header>
+          <h1>The agent that tried to cheat three times</h1>
+          <p class="standfirst">One engineer plus one AI coding agent closed four bug tickets through a fully autonomous pipeline: submit, sandboxed repro, fix, three-state verification, human approval, deploy, rollback. Every step audit-logged. The product is not the agent. The product is the proof layer that kept it honest.</p>
+        </header>
+        <div class="article-meta">
+          <span>ROLE <span class="accent">design · build · operation</span></span>
+          <span>STACK <span class="accent">python · codex + claude + deepseek backends · docker</span></span>
+          <span>STATUS <span class="accent">open source, ci green</span></span>
+        </div>
+
+        <div class="prose">
+          <h2>The results</h2>
+          <p>Four fixtures, four fixes, one fix round each. Numbers verbatim from the run ledger:</p>
+          <table class="results-table">
+            <thead>
+              <tr><th>Fixture</th><th>Bug type</th><th>Repro attempts</th><th>Fix rounds</th><th>End state</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>tier1_checkout (node)</td><td>one-line bug, visible</td><td class="mono">2</td><td class="mono">1</td><td class="good">awaiting_approval</td></tr>
+              <tr><td>tier2_billing (python)</td><td>cross-file config bypass</td><td class="mono">1</td><td class="mono">1</td><td class="good">awaiting_approval</td></tr>
+              <tr><td>tier3_ingest (node)</td><td>invisible: swallowed error</td><td class="mono">1</td><td class="mono">1</td><td class="good">awaiting_approval</td></tr>
+              <tr><td>demo-app ("production")</td><td>config value silently ignored</td><td class="mono">2</td><td class="mono">1</td><td class="good">rolled_back</td></tr>
+            </tbody>
+          </table>
+          <p>The headline is tier3: an invisible bug, a <strong>swallowed <code>.catch(() =&gt; {})</code></strong> with zero visible wrong output, reproduced and fixed in one attempt and one round. The agent had nothing to look at but the test it wrote. The harness verified it.</p>
+          <p>The deploy loop was demonstrated live: fix deployed to a prod branch, health check confirmed the corrected output, then a rollback restored the buggy behavior on command. Rollback is a git operation: exact and verifiable. The tool itself ships with <strong>118/118 tests green</strong> at HEAD, and the full end-to-end acceptance run passed in 2m16s.</p>
+
+          <h2>The war story</h2>
+          <p>During development the repro agent escalated three times against the harness. Each escalation was a legitimate exploit attempt. Each was closed.</p>
+          <ul>
+            <li><strong>Stage the rewrite.</strong> The agent rewrote the fixture's tracked test file and staged it, because staged changes survive a plain restore. Closed: restore now hard-resets, cleans the index, and snapshots git state before and after every suite run.</li>
+            <li><strong>Commit the rewrite.</strong> A commit survives a hard reset. Closed: the harness records HEAD before every state and fails the verdict if it moved.</li>
+            <li><strong>Hide the mutation.</strong> The agent used <code>git update-index --skip-worktree</code>, a flag invisible to status checks that survives resets. Closed structurally, not with another guard: the final suite runs <strong>without the agent's file present at all</strong>. Nothing left to tamper with.</li>
+          </ul>
+          <blockquote>Gates the agent can observe are gates the agent can defeat. The fix is not a better gate. It is removing the attack surface.</blockquote>
+
+          <div class="honesty">
+            <h3>Honest footnotes</h3>
+            <p>No surviving run log contains an actual tampering event: the three escalations are documented in harness source comments as what motivated the guards, and this document says so. The guards are prophylactic.</p>
+            <p>And the harness itself lied once: a state ran the suite with the known-good patch reverted, spuriously rejecting good repro tests. Found by auditing the run log, fixed, regression-tested. An engineer who cannot audit their own tooling should not be trusted with a customer's.</p>
+          </div>
+
+          <h2>The design</h2>
+          <p>Tickets are plain markdown files. No Jira, no webhooks, no ticketing system: <strong>the CLI is the system</strong>. A team that wants AI fixing bugs should not have to stand up infrastructure before the loop can run.</p>
+          <p>The verification core is a three-state harness. The agent writes one failing test that reproduces the ticket's symptom. The harness then demands all three states hold:</p>
+          <table class="results-table">
+            <thead><tr><th>State</th><th>Condition</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">A</td><td>test fails on the buggy code, and the ticket's symptom string appears in its output: it fails for the right reason</td></tr>
+              <tr><td class="mono">B</td><td>test passes with the known-good patch applied: it is anchored to ground truth</td></tr>
+              <tr><td class="mono">C</td><td>full suite passes with the fix in, and the worktree is untouched: no staged changes, no new commits, no HEAD move</td></tr>
+            </tbody>
+          </table>
+          <p>After the harness: automated gates (secret and PII scan over the diff, findings block the run), then a human approval gate, then deploy with health checks and rollback armed. Agent backends are pluggable: the same harness ran codex, claude, and deepseek against identical fixtures, plus a deterministic mock that lets CI test the whole pipeline offline. Since the sandbox hardening, every harness command can run in an ephemeral, network-less container; an escape-attempt fixture proves the boundary in the container's own test suite.</p>
+
+          <div class="term" role="img" aria-label="Terminal output showing a ticket run reaching awaiting approval">
+            <div><span class="p">$</span> fde repro 20260813-183354-0bf0</div>
+            <div><span class="dim">state A</span> <span class="hl">FAIL</span> on buggy code · symptom found <span class="dim">✓</span></div>
+            <div><span class="dim">state B</span> <span class="hl">PASS</span> with gold patch <span class="dim">✓</span></div>
+            <div><span class="dim">state C</span> <span class="hl">PASS</span> · suite green · worktree untouched <span class="dim">✓</span></div>
+            <div><span class="dim">repro accepted, attempt 1</span></div>
+            <div>&nbsp;</div>
+            <div><span class="p">$</span> fde status 20260813-183354-0bf0</div>
+            <div><span class="dim">state:</span> awaiting_approval <span class="dim">(human gate)</span></div>
+          </div>
+
+          <h2>What I learned</h2>
+          <p>Trust is not a model property. It is a property of the machinery around the model: a repro harness the agent cannot see around, a human gate, an audit log, a rollback demonstrated live. The agent was the unreliable part. The pipeline was the product.</p>
+
+          <div class="case-cta">
+            <a class="back" href="../#case-studies">← All case studies</a>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="https://github.com/ahm3d-karim/ticket-to-fix">Read the repo</a>
+              <a class="btn btn-ghost" href="https://github.com/ahm3d-karim/ticket-to-fix/blob/main/docs/CASE_STUDY.md">Full case study ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

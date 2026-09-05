@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Macro Lens case study — Ahmad Karim</title>
+  <meta name="description" content="Five economies, four decades of World Bank data, published as finding-first dossiers with zero backend." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101210'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='600' text-anchor='middle' fill='%236FCF97'%3E%24%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="dollar">$</span> ahmad-karim</a>
+      <nav class="site-nav" aria-label="Main">
+        <a class="u-line" href="../#case-studies">Case studies</a>
+        <a class="u-line" href="../#footer">Contact</a>
+        <a class="u-line" href="https://github.com/ahm3d-karim">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="article">
+      <div class="container">
+        <span class="kicker">Case study · macro lens</span>
+        <header>
+          <h1>Reading South Asia honestly</h1>
+          <p class="standfirst">Five economies. Four decades. One honest look. Macro Lens publishes macroeconomic dossiers for Pakistan, India, Bangladesh, Sri Lanka, and Nepal, every series pulled straight from the World Bank's World Development Indicators. No backend, no database, no aggregator.</p>
+        </header>
+        <div class="article-meta">
+          <span>ROLE <span class="accent">data pipeline · editorial design · build</span></span>
+          <span>STACK <span class="accent">next.js 16 · typescript · recharts · wdi</span></span>
+          <span>STATUS <span class="accent">live</span></span>
+        </div>
+
+        <div class="prose">
+          <h2>The results</h2>
+          <table class="results-table">
+            <thead><tr><th>Dimension</th><th>Number</th></tr></thead>
+            <tbody>
+              <tr><td>Economies covered</td><td class="mono good">5 (pk, in, bd, lk, np)</td></tr>
+              <tr><td>Indicators per country</td><td class="mono good">12</td></tr>
+              <tr><td>History per series</td><td class="mono good">40+ years</td></tr>
+              <tr><td>Runtime backend</td><td class="mono">none: 100% static, pre-rendered at build</td></tr>
+            </tbody>
+          </table>
+          <p>The whole product is a static export. Data lives as JSON files; pages are pre-rendered at build time. That means the site cannot go down because a data API did, cannot leak a database, and loads like a document, not like an app.</p>
+
+          <h2>The editorial rule: finding first</h2>
+          <p>Most data dashboards show metrics and make the reader do the analysis. Macro Lens inverts that. Every chart on the site answers a written question, and the finding is the headline. Pakistan's page leads with the boom-bust cycle and remittance dependence. Bangladesh's leads with the export machine that carried its GDP per capita past Pakistan's. Sri Lanka's leads with the 2022 reserve collapse. Nepal's leads with remittances worth roughly a quarter of GDP.</p>
+          <blockquote>A chart that does not answer a question does not ship.</blockquote>
+          <p>That rule came from economics training: a figure in a paper exists to support a claim. If you cannot write the claim, you do not yet have a figure.</p>
+
+          <h2>The pipeline</h2>
+          <p>A sibling data repo pulls each series from the WDI API, checks it, and writes versioned JSON. The site repo treats that data as a build input, so refreshing the numbers is a pipeline run, not a code change. Primary source only: every series is traceable to the World Bank, never to a scraped aggregator. (A known limitation, stated plainly: some World Bank government-finance series for Pakistan are absent at source, and one alternative API is unreachable from my network, so those series ship empty rather than filled with a proxy.)</p>
+          <p>The stack is deliberately boring: Next.js 16 with static output, TypeScript, Recharts, Tailwind. The interesting decisions are editorial and architectural, not framework-shaped.</p>
+
+          <div class="term" role="img" aria-label="Terminal output showing a static build of the dossiers">
+            <div><span class="p">$</span> pull.py --countries pk,in,bd,lk,np</div>
+            <div><span class="dim">wdi:</span> 60 series fetched · 0 failed · json written</div>
+            <div>&nbsp;</div>
+            <div><span class="p">$</span> next build</div>
+            <div><span class="dim">✓</span> <span class="hl">static</span> 30/30 pages pre-rendered</div>
+            <div><span class="dim">zero backend, zero database, zero api keys at runtime</span></div>
+          </div>
+
+          <h2>What I learned</h2>
+          <p>Static-first is a data-product superpower: the entire failure surface of a live API disappears when the build does the fetching. And constraint breeds voice: the "finding first" rule made five country pages feel like five arguments, not five dashboards.</p>
+
+          <div class="case-cta">
+            <a class="back" href="../#case-studies">← All case studies</a>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="https://macrolens-pied.vercel.app">Open the site</a>
+              <a class="btn btn-ghost" href="https://github.com/ahm3d-karim/macrolens">Code ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

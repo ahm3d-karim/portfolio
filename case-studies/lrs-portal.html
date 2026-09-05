@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LRS Portal case study — Ahmad Karim</title>
+  <meta name="description" content="Replaced a spreadsheet + WhatsApp shortlisting process for a real student society with a live portal. Code private, running in production." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101210'/%3E%3Ctext x='32' y='45' font-family='monospace' font-size='36' font-weight='600' text-anchor='middle' fill='%236FCF97'%3E%24%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/"><span class="dollar">$</span> ahmad-karim</a>
+      <nav class="site-nav" aria-label="Main">
+        <a class="u-line" href="../#case-studies">Case studies</a>
+        <a class="u-line" href="../#footer">Contact</a>
+        <a class="u-line" href="https://github.com/ahm3d-karim">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="article">
+      <div class="container">
+        <span class="kicker">Case study · lrs portal</span>
+        <header>
+          <h1>A society's shortlisting, rebuilt</h1>
+          <p class="standfirst">The LUMS Religious Society's member shortlisting ran on spreadsheets and WhatsApp: manual updates, unverifiable entry codes, no shared source of truth. I rebuilt it as a live portal with role-based access, server-verified entry codes, and a stats dashboard. It runs in production for the society's team today.</p>
+        </header>
+        <div class="article-meta">
+          <span>ROLE <span class="accent">architecture · build · production ops</span></span>
+          <span>STACK <span class="accent">next.js 16 · supabase · resend · vercel</span></span>
+          <span>STATUS <span class="accent">in production (code private)</span></span>
+        </div>
+
+        <div class="prose">
+          <h2>The results</h2>
+          <table class="results-table">
+            <thead><tr><th>Before</th><th>After</th></tr></thead>
+            <tbody>
+              <tr><td>Spreadsheets edited by hand</td><td class="good">Live database with role-based access</td></tr>
+              <tr><td>Entry codes checked by eye</td><td class="good">Codes verified server-side, impossible to read from the client</td></tr>
+              <tr><td>Counts reconciled over WhatsApp</td><td class="good">Transfer and batch statistics computed from one source of truth</td></tr>
+              <tr><td>No history, no accountability</td><td class="good">Audit log on sensitive actions</td></tr>
+            </tbody>
+          </table>
+          <p>This is the least flashy project on this site and the most telling one: it has real users, real data that must not leak, and real consequences when a number is wrong. There is no public link here on purpose. The code is private because it holds a student society's member data; the deployment is login-protected. An architecture walkthrough is available in an interview.</p>
+
+          <h2>The constraint that shaped it</h2>
+          <p>The society already had a legacy backend that could not validate entry codes in real time: checking a code meant a page refresh against stale data. The fix was a migration to a realtime backend, shipped with a compatibility path kept open so a rollback to the old system stayed possible until the new one proved itself. Migration discipline mattered more than framework choice: numbered, ordered migrations; a rollback plan; secrets kept out of the client entirely.</p>
+          <p>Day to day, the portal ingests updates from the society's membership sheet through a forwarder with catch-up logic, verifies codes through a server-side check that the client cannot bypass, and computes the transfer and gender/batch statistics the EC actually argues about.</p>
+          <blockquote>Production is where the easy problems stop being easy: staleness, trust, and rollback all stop being theoretical.</blockquote>
+
+          <h2>The collaboration</h2>
+          <p>This is a joint build with the society's team. My changes ship as reviewed pull requests against the upstream repo, each with its own verification pass: typecheck, build, and lint clean before merge. Working on someone else's production system is a different discipline from shipping your own side project: you optimize for boring, reversible changes, and you leave the codebase legible for the next person.</p>
+
+          <h2>What I learned</h2>
+          <p>The hardest problems in this build were organizational, not technical: who is allowed to see what, what happens when a code leaks, how to retire an old system without a big-bang cutover. Those questions do not appear in tutorials, and they are exactly what a forward-deployed engineer lives in.</p>
+
+          <div class="case-cta">
+            <a class="back" href="../#case-studies">← All case studies</a>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="mailto:28020258@lums.edu.pk">Ask me about it</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
