@@ -681,52 +681,94 @@ html.lenis, html.lenis body { height: auto; }
   .hero .cta-row .btn { padding: 12px 20px; }
 }
 
-/* ---------- the continuous world ---------- */
+/* ============================================================
+   v3 motion language: committed cream theme, hard-cut machine
+   chapter, blur-in reveals, tilted parallax media, marquee,
+   meta labels, sweep statements. (refs: huyml / nexstudio / donut)
+   ============================================================ */
+
+/* the machine chapter: one hard-cut dark section */
+.machine-chapter {
+  background: #0E100E;
+  color: #E9E4DA;
+  padding: 110px 0 90px;
+  position: relative;
+  overflow: hidden;
+}
+.machine-chapter .meta-label { color: #6FCF97; }
+.machine-static { width: 100%; max-width: 1100px; height: auto; display: block; margin: 34px auto 0; }
+.machine-caption {
+  text-align: center;
+  margin-top: 26px;
+  color: #7C8A7E;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 700px) {
+  .machine-chapter { padding: 72px 0 56px; }
+  .machine-static { margin-top: 18px; }
+}
+
+/* meta labels: mono, parentheses, edge-pinned feel */
+.meta-label { letter-spacing: 0.12em; }
+.kicker.meta-label { text-transform: none; }
+
+/* blur-in reveal (huyml sharpen-from-blur) */
+.js [data-blur] {
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(10px);
+  transition: opacity 0.9s var(--ease), filter 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.js [data-blur].in { opacity: 1; filter: blur(0); transform: none; }
+
+/* tilt + parallax media frames (huyml scattered cards) */
+.flagship-media {
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flagship-media { transform: none !important; }
+}
+
+/* statement sweep: words ink-in as the section crosses (nexstudio) */
+.js h2[data-sweep] .sw {
+  display: inline-block;
+  opacity: 0.14;
+  transition: opacity 0.5s var(--ease);
+}
+.js h2[data-sweep].in .sw { opacity: 1; }
+
+/* tagline marquee (donut) */
+.marquee {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+  padding: 18px 0;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 26s linear infinite;
+}
+.marquee-track span {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 540;
+  white-space: nowrap;
+  color: var(--ink);
+}
+@keyframes marquee-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* world canvas stays behind everything */
 #world {
   position: fixed;
   inset: 0;
   z-index: -1;
   display: block;
 }
-body.world-dark .site-header {
-  background: rgba(14, 16, 14, 0.88);
-  border-bottom-color: #262B26;
-}
-body.world-dark .site-header .brand,
-body.world-dark .site-header .site-nav a { color: #E9E4DA; }
-
 @media (prefers-reduced-motion: reduce) {
   #world { display: none; }
 }
-
-/* machine corridor: stats + proof sit on solid cream plates that NEVER
-   change color. The world darkens around them; the cards read as cream
-   islands floating in the machine. No text is ever mid-fade. */
-.stats { position: relative; }
-.stats::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #FAF8F5;
-  box-shadow: 0 0 0 1px var(--line);
-  z-index: 0;
-}
-.stats .container { position: relative; z-index: 1; }
-
-.proof-strip { position: relative; }
-.proof-strip::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #FAF8F5;
-  box-shadow: 0 0 0 1px var(--line);
-}
-.proof-strip .container { position: relative; z-index: 1; }
-
-/* the machine's stage: empty band where gates + ring play */
-.machine-band { height: 160vh; }
-@media (max-width: 700px) { .machine-band { height: 120vh; } }
-
-/* the descent stage: empty band where cream fades to dark */
-.descent-band { height: 160vh; }
-@media (max-width: 700px) { .descent-band { height: 120vh; } }

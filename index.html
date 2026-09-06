@@ -17,6 +17,7 @@
   <script src="assets/lenis.min.js" defer></script>
   <script src="assets/main.js" defer></script>
   <script src="assets/world.js" defer></script>
+  <script src="assets/motion.js" defer></script>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -50,12 +51,12 @@
     <section class="section" id="flagships">
       <div class="container">
         <div class="section-head anim" data-anim="fade-up">
-          <span class="kicker">01 · Flagships</span>
+          <span class="kicker meta-label">(01) · flagships</span>
           <h2>Two products, deployed and live.</h2>
         </div>
 
         <article class="flagship anim" data-anim="fade-up">
-          <a class="flagship-media" href="https://macrolens-pied.vercel.app" aria-label="Macro Lens live site">
+          <a class="flagship-media" data-tilt="-1.3" data-speed="0.06" href="https://macrolens-pied.vercel.app" aria-label="Macro Lens live site">
             <img src="assets/img/macrolens.webp" alt="Macro Lens homepage: five South Asian country cards with GDP growth, inflation, and GDP per capita" width="1200" height="750" loading="eager" />
           </a>
           <div class="flagship-info">
@@ -73,7 +74,7 @@
         </article>
 
         <article class="flagship flip anim" data-anim="fade-up">
-          <a class="flagship-media" href="https://semester-os-omega.vercel.app" aria-label="Semester OS live site">
+          <a class="flagship-media" data-tilt="1.1" data-speed="-0.05" href="https://semester-os-omega.vercel.app" aria-label="Semester OS live site">
             <img src="assets/img/semester-os.webp" alt="Semester OS homepage: upload a syllabus, three steps, verified course plan" width="1200" height="643" loading="lazy" />
           </a>
           <div class="flagship-info">
@@ -92,8 +93,6 @@
       </div>
     </section>
 
-    <!-- DESCENT BAND: the light-to-dark fade plays here, no text -->
-    <div class="descent-band" aria-hidden="true"></div>
     <!-- STATS -->
     <section class="stats" aria-label="Numbers">
       <div class="container">
@@ -108,7 +107,7 @@
     <section class="section proof-strip" id="proof">
       <div class="container">
         <div class="section-head anim" data-anim="fade-up">
-          <span class="kicker">Proof, not promises</span>
+          <span class="kicker meta-label">(03) · proof, not promises</span>
           <h2>What the work looks like when it runs.</h2>
         </div>
         <div class="term term-home anim" data-anim="fade-up" data-type role="img" aria-label="Terminal transcript showing a ticket being verified and deployed">
@@ -126,20 +125,51 @@
       </div>
     </section>
 
+    <!-- THE MACHINE: one hard-cut dark chapter (no fade), world.js animates it -->
+    <section class="machine-chapter" id="machine">
+      <div class="container machine-inner">
+        <span class="kicker meta-label">(04) · the machine</span>
+        <svg class="machine-static" viewBox="0 0 1100 420" role="img" aria-label="Diagram: input particles pass three gates A, B, C and resolve into a verified ring">
+          <g fill="none" stroke="#6FCF97" stroke-width="3">
+            <rect x="470" y="90" width="7" height="240" rx="3.5" />
+            <rect x="610" y="90" width="7" height="240" rx="3.5" />
+            <rect x="750" y="90" width="7" height="240" rx="3.5" />
+          </g>
+          <g fill="#6FCF97" font-family="JetBrains Mono, monospace" font-size="22">
+            <text x="462" y="70">A</text><text x="602" y="70">B</text><text x="742" y="70">C</text>
+          </g>
+          <g fill="none" stroke="#E9E4DA" stroke-width="5" opacity="0.9">
+            <path d="M 915 142 A 95 95 0 1 0 917 294" />
+          </g>
+          <g stroke="#6FCF97" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M 877 218 L 910 250 L 965 183" />
+          </g>
+          <g fill="#E9E4DA" opacity="0.5">
+            <circle cx="80" cy="210" r="4" /><circle cx="140" cy="180" r="3" /><circle cx="200" cy="230" r="5" />
+            <circle cx="260" cy="190" r="3" /><circle cx="320" cy="220" r="4" /><circle cx="390" cy="200" r="3" />
+          </g>
+          <g stroke="#E9E4DA" stroke-width="1" opacity="0.25">
+            <line x1="80" y1="210" x2="452" y2="210" /><line x1="140" y1="180" x2="452" y2="196" />
+            <line x1="200" y1="230" x2="452" y2="224" /><line x1="320" y1="220" x2="452" y2="216" />
+          </g>
+        </svg>
+        <p class="machine-caption mono-tag">every input passes three gates. nothing ships on a promise. <span aria-hidden="true">&rarr;</span> scroll</p>
+      </div>
+    </section>
 
-
-
-
-
-    <!-- MACHINE BAND: the machine plays here, no text, canvas only -->
-    <div class="machine-band" aria-hidden="true"></div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>less hype, more harness&nbsp;&copy;&nbsp;&middot;&nbsp;less hype, more harness&nbsp;&copy;&nbsp;&middot;&nbsp;less hype, more harness&nbsp;&copy;&nbsp;&middot;&nbsp;</span>
+        <span>less hype, more harness&nbsp;&copy;&nbsp;&middot;&nbsp;less hype, more harness&nbsp;&copy;&nbsp;&middot;&nbsp;less hype, more harness&nbsp;&copy;&nbsp;&middot;&nbsp;</span>
+      </div>
+    </div>
 
     <!-- CASE STUDIES -->
     <section class="section" id="case-studies">
       <div class="container">
         <div class="section-head anim" data-anim="fade-up">
-          <span class="kicker">02 · Case studies</span>
-          <h2>The stories behind the builds, written like an analyst.</h2>
+          <span class="kicker meta-label">(05) · case studies</span>
+          <h2 data-sweep>The stories behind the builds, written like an analyst.</h2>
         </div>
 
         <a class="case-row anim" data-anim="fade-up" href="case-studies/ticket-to-fix.html">
@@ -181,7 +211,7 @@
     <section class="section" id="tooling">
       <div class="container">
         <div class="section-head anim" data-anim="fade-up">
-          <span class="kicker">03 · Tooling</span>
+          <span class="kicker meta-label">(06) · tooling</span>
           <h2>Small sharp CLIs.</h2>
         </div>
         <div class="tool-grid">
@@ -203,7 +233,7 @@
     <section class="section" id="archive">
       <div class="container">
         <div class="section-head anim" data-anim="fade-up">
-          <span class="kicker">04 · Archive</span>
+          <span class="kicker meta-label">(07) · archive</span>
           <h2>Earlier builds, still up.</h2>
         </div>
         <div class="archive-grid">
