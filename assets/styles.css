@@ -699,42 +699,34 @@ body.world-dark .site-header .site-nav a { color: #E9E4DA; }
   #world { display: none; }
 }
 
-/* solid plates for the machine zone (never text-over-canvas-mid-fade) */
+/* machine corridor: stats + proof sit on solid cream plates that NEVER
+   change color. The world darkens around them; the cards read as cream
+   islands floating in the machine. No text is ever mid-fade. */
 .stats { position: relative; }
 .stats::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--surface);
-  opacity: 1;
-  transition: opacity 0.5s ease;
+  background: #FAF8F5;
+  box-shadow: 0 0 0 1px var(--line);
   z-index: 0;
 }
 .stats .container { position: relative; z-index: 1; }
-body.world-dark .stats::before { background: #10120F; }
 
 .proof-strip { position: relative; }
-.proof-strip .container { position: relative; z-index: 1; }
 .proof-strip::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: transparent;
-  transition: background 0.5s ease;
+  background: #FAF8F5;
+  box-shadow: 0 0 0 1px var(--line);
 }
-body.world-dark .proof-strip::before { background: #0E100E; }
-
-/* dark-zone text turns light */
-body.world-dark .stats .num,
-body.world-dark .stat .lbl { color: #E9E4DA; }
-body.world-dark .section-head h2,
-body.world-dark .proof-strip .section-head h2 { color: #F2EEE6; }
-body.world-dark .section-head .kicker { color: #6FCF97; }
-
-/* case pages: prose plate stays solid over ambient canvas */
-.article { background: transparent; }
-.prose { background: transparent; }
+.proof-strip .container { position: relative; z-index: 1; }
 
 /* the machine's stage: empty band where gates + ring play */
 .machine-band { height: 160vh; }
 @media (max-width: 700px) { .machine-band { height: 120vh; } }
+
+/* the descent stage: empty band where cream fades to dark */
+.descent-band { height: 160vh; }
+@media (max-width: 700px) { .descent-band { height: 120vh; } }

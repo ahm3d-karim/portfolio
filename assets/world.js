@@ -33,7 +33,8 @@
         lane: Math.random() * 2 - 1,
         s: Math.random(),
         sp: 0.6 + Math.random() * 0.8,
-        sz: 0.5 + Math.random() * 0.9,
+        sz: 0.7 + Math.random() * 1.0,
+        big: Math.random() < 0.10,
       });
     }
   }
@@ -64,16 +65,23 @@
       T.tailEnd = Math.max(1, doc - vh);
     } else {
       const flags = q("#flagships"), stats = q(".stats"), band = q(".machine-band"),
+            descentBand = q(".descent-band"),
             proof = q(".proof-strip"), cases = q("#case-studies"),
             archive = q("#archive");
-      T.descentStart = yOf(flags) + flags.offsetHeight - vh * 0.25;
-      T.descentEnd = yOf(stats) - vh * 0.05;
+      const dTop = yOf(descentBand), dH = descentBand ? descentBand.offsetHeight : vh * 1.6;
+      // the fade lives ENTIRELY inside the empty descent band. The band is
+      // taller than the viewport, so there is a scroll window where it alone
+      // fills the screen: the fade completes inside that window, so no cream
+      // text is ever in frame while the background is mid-fade.
+      const dSpan = Math.max(10, dH - vh);
+      T.descentStart = dTop - vh * 0.03;
+      T.descentEnd = dTop + dSpan * 0.7;
       const bandTop = yOf(band), bandH = band ? band.offsetHeight : vh * 1.6;
       const span = Math.max(10, bandH - vh);   // scroll distance while the band alone fills the screen
-      T.machineStart = bandTop - vh * 0.15;    // gates light as the band enters
-      T.machineEnd = bandTop + span * 0.62;    // river + ring + a held completed checkmark
+      T.machineStart = yOf(proof) + proof.offsetHeight * 0.15; // river + gates wake behind the proof card
+      T.machineEnd = bandTop + span * 0.58;    // ring draws, check completes and holds
       T.ascentStart = T.machineEnd;            // ascent completes while the band still fills
-      T.ascentEnd = bandTop + span;            // the screen: cream returns before case-studies text enters
+      T.ascentEnd = bandTop + span;            // cream returns before case-studies text enters
       T.tailStart = Math.max(0, yOf(archive) - vh * 0.5);
       T.tailEnd = Math.max(1, doc - vh);
     }
@@ -92,13 +100,7 @@
     } else {
       const descent = ease((sy - T.descentStart) / (T.descentEnd - T.descentStart));
       ascend = clamp01((sy - T.ascentStart) / (T.ascentEnd - T.ascentStart));
-      const ascentEase = ease(ascend);
-      dark = clamp01(descent * (1 - ascentEase));
-      // background snaps through a narrow band around the text-flip point:
-      // whenever the .world-dark class is on, the bg is already ~fully dark,
-      // whenever it is off, the bg is still ~cream. No mid-gray seam.
-      const s = clamp01((dark - 0.42) / 0.16);
-      dark = s * s * (3 - 2 * s);
+      dark = clamp01(descent * (1 - ease(ascend)));
       machineT = clamp01((sy - T.machineStart) / (T.machineEnd - T.machineStart));
       tailT = clamp01((sy - T.tailStart) / (T.tailEnd - T.tailStart));
     }
@@ -120,8 +122,8 @@
       // home drift (cream phases)
       let x = p.hx * W + Math.sin(p.ph + now * 0.00035 * p.sp) * 14;
       let y = p.hy * H + Math.cos(p.ph * 1.3 + now * 0.00028 * p.sp) * 14;
-      let alpha = 0.13 + 0.07 * Math.sin(p.ph + now * 0.001);
-      let sz = 1.6 * p.sz;
+      let alpha = 0.34 + 0.14 * Math.sin(p.ph + now * 0.001);
+      let sz = (p.big ? 3.4 : 2.2) * p.sz;
       let green = 0;
 
       // river blend inside the machine
@@ -166,7 +168,7 @@
       }
     }
 
-    if (!AMBIENT && dark > 0.05) {
+    if (!AMBIENT && dark > 0.12) {
       const fade = 1 - clamp01(ascend * 1.4); // visuals dissolve early in the ascent
       if (fade > 0) {
         drawGates(dark * fade, machineT);
